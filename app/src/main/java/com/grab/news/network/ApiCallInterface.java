@@ -1,7 +1,6 @@
 package com.grab.news.network;
 
 import com.grab.news.models.StandardResponse;
-import com.grab.news.models.StoriesModel;
 import com.grab.news.models.TopNewsModel;
 import com.grab.news.utils.AppConstants;
 

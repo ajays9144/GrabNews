@@ -48,7 +48,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsLi
 
             holder.textNewsTitle.setText(topNewsModel.getTitle());
             holder.textNewsDescription.setText(topNewsModel.getDescription());
-//            Glide.with(context).load(topNewsModel.getUrlToImage()).placeholder(R.color.colorAccent).error(R.color.colorAccent).into(holder.imageNewsViews);
+            Glide.with(context).load(topNewsModel.getUrlToImage()).placeholder(R.color.colorAccent).error(R.color.colorAccent).into(holder.imageNewsViews);
         } catch (Exception e) {
             Log.e("Exception: ", e.getMessage());
         }

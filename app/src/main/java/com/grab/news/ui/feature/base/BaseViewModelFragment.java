@@ -1,12 +1,8 @@
 package com.grab.news.ui.feature.base;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,18 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-
 import com.grab.news.AppController;
 import com.grab.news.di.ManagerComponent;
 
 import java.util.HashMap;
 
-import butterknife.internal.Utils;
-
 public abstract class BaseViewModelFragment<V extends Contract.View> extends Fragment implements MvpView {
 
     private HashMap _$_findViewCache;
-    private ProgressDialog mProgressDialog;
 
     public void _$_clearFindViewByIdCache() {
         HashMap hashMap = this._$_findViewCache;
@@ -86,14 +78,11 @@ public abstract class BaseViewModelFragment<V extends Contract.View> extends Fra
     @Override
     public void showLoading() {
         hideKeyboard();
-//        mProgressDialog = Utils.showLoadingDialog(getContext());
     }
 
     @Override
     public void hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.cancel();
-        }
+
     }
 
     @Override
@@ -125,10 +114,6 @@ public abstract class BaseViewModelFragment<V extends Contract.View> extends Fra
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
-    private void showToastNow(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void hideKeyboard() {
         if (getActivity() != null) {
@@ -143,25 +128,5 @@ public abstract class BaseViewModelFragment<V extends Contract.View> extends Fra
     @Override
     public boolean isNetworkConnected() {
         return false;
-    }
-
-    public void setupUI(android.view.View view) {
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new android.view.View.OnTouchListener() {
-                public boolean onTouch(android.view.View v, MotionEvent event) {
-                    hideKeyboard();
-                    return false;
-                }
-            });
-        }
-
-        //If a layout container, iterate over children and seed recursion.
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                android.view.View innerView = ((ViewGroup) view).getChildAt(i);
-                setupUI(innerView);
-            }
-        }
     }
 }

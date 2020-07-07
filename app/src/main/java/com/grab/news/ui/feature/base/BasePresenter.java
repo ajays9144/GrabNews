@@ -37,48 +37,4 @@ public abstract class BasePresenter<V extends Contract.View> implements Contract
     public CompositeDisposable getCompositeDisposable() {
         return this.compositeDisposable;
     }
-
-    /*public StandardResponse parseError(Throwable e) {
-        try {
-            return parseError(((HttpException) e).response());
-        } catch (ClassCastException e1) {
-            return handleApiError(e);
-        }
-    }
-
-    public StandardResponse parseError(Response<?> response) {
-        ManagerModule managerModule = new ManagerModule();
-        Converter<ResponseBody, StandardResponse> converter = managerModule.provideRetrofit(managerModule.provideGson(),
-                managerModule.getRequestHeader()).responseBodyConverter(StandardResponse.class, new Annotation[0]);
-        StandardResponse error;
-        try {
-            error = converter.convert(response.errorBody());
-        } catch (Exception e) {
-            return StandardResponse.EMPTY_VIEW;
-        }
-        return error;
-    }
-
-    public StandardResponse handleApiError(Throwable error) {
-        if (error instanceof UnknownHostException) {
-            return StandardResponse.NO_INTERNET_CONNECTION;
-        } else if (error instanceof HttpException) {
-            switch (((HttpException) error).code()) {
-                case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                    return StandardResponse.UNAUTH_USER;
-                case HttpsURLConnection.HTTP_FORBIDDEN:
-                    return StandardResponse.FORBIDDEN_USER;
-                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                    return StandardResponse.INTERNAL_SERVER;
-                case HttpsURLConnection.HTTP_BAD_REQUEST:
-                    return StandardResponse.BAD_REQUEST;
-                case API_STATUS_CODE_LOCAL_ERROR:
-                    return StandardResponse.NO_INTERNET_CONNECTION;
-                default:
-                    return StandardResponse.EMPTY_VIEW;
-
-            }
-        }
-        return StandardResponse.EMPTY_VIEW;
-    }*/
 }
