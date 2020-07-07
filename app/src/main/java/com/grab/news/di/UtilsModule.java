@@ -76,26 +76,6 @@ public class UtilsModule {
         return retrofit.create(ApiCallInterface.class);
     }
 
-    public static final Interceptor REWRITE_RESPONSE_INTERCEPTOR_OFFLINE(Application application) {
-        return new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                if (isOnline(application)) {
-                    request = request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build();
-                } else {
-                    request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
-                }
-                Response response = chain.proceed(request);
-
-                System.out.println("network: " + response.networkResponse());
-                System.out.println("cache: " + response.cacheResponse());
-
-                return response;
-            }
-        };
-    }
-
     /**
      * Gets request header.
      *
@@ -120,11 +100,7 @@ public class UtilsModule {
         }).connectTimeout(100, TimeUnit.SECONDS)
                 .writeTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(300, TimeUnit.SECONDS);
-//        httpClient.addNetworkInterceptor(provideCacheInterceptor());
         httpClient.addInterceptor(provideOfflineCacheInterceptor(application));
-
-        /*httpClient.addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE(application));
-        httpClient.addNetworkInterceptor(provideCacheInterceptor());*/
         httpClient.cache(cache);
 
         return httpClient.build();
@@ -136,42 +112,18 @@ public class UtilsModule {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    private Interceptor provideCacheInterceptor() {
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response originalResponse = chain.proceed(request);
-                String cacheControl = originalResponse.header("Cache-Control");
-
-                if (cacheControl == null || cacheControl.contains("no-store") || cacheControl.contains("no-cache") ||
-                        cacheControl.contains("must-revalidate") || cacheControl.contains("max-stale=0")) {
-                    return originalResponse.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + 10)
-                            .build();
-                } else {
-                    return originalResponse;
-                }
-            }
-        };
-    }
 
     private Interceptor provideOfflineCacheInterceptor(Application application) {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                /*if (!isOnline(application)) {
+                if (!isOnline(application)) {
 
                     int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
                     request = request.newBuilder()
                             .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
                             .build();
-                }*/
-                if (isOnline(application)) {
-                    request = request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build();
-                } else {
-                    request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
                 }
                 Response response = chain.proceed(request);
 
