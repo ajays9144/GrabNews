@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/medium_dp"
+    app:cardCornerRadius="@dimen/small_dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/medium_dp">
+
+        <ImageView
+            android:id="@+id/image_news_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            tools:src="@color/textColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:maxLines="2"
+                android:padding="@dimen/small_dp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/large_sp"
+                tools:text="This is the title" />
+
+            <TextView
+                android:id="@+id/text_news_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:maxLines="4"
+                android:padding="@dimen/small_dp"
+                tools:text="this is the description" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="x_small_dp">2dp</dimen>
+    <dimen name="small_dp">4dp</dimen>
+    <dimen name="medium_dp">8dp</dimen>
+    <dimen name="medium_large_dp">12dp</dimen>
+    <dimen name="large_dp">16dp</dimen>
+    <dimen name="large_x_dp">20dp</dimen>
+
+    <dimen name="x_small_sp">2sp</dimen>
+    <dimen name="small_sp">4sp</dimen>
+    <dimen name="medium_sp">8sp</dimen>
+    <dimen name="medium_large_sp">12sp</dimen>
+    <dimen name="large_sp">16sp</dimen>
+    <dimen name="large_x_sp">20sp</dimen>
+
+    <dimen name="image_size">100dp</dimen>
+
+</resources>

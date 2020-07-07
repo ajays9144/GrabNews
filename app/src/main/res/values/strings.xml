@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GrabNews</string>
+
+    <!--Basic-->
+    <string name="error_something_went_wrong">Something went wrong</string>
+
+</resources>
